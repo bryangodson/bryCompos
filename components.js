@@ -146,6 +146,91 @@ document.querySelector(El).style.setProperty(key, Css[key],null)
       }
       }
     },
+    Attr:{
+      has:(attr)=>{
+       let element= $(El).getEl();
+       if (element.hasAttribute(attr)) {
+         return true
+        
+       }else{
+         return false;
+         throw new Error("element has no such attribute");
+       }
+        
+      },
+      setVal:(attri,val)=>{
+        let e = $(El).getEl();
+       let ans= e.getAttribute(attri);
+        if (val==ans) {
+          throw new Error("Attribute value already exists" )
+        }else{
+          e.setAttribute(attri,val)
+        }
+        
+      },
+      getVal:(att)=>{
+       
+        if ($(El).Attr.has(att)){
+          let val= $(El).getEl().getAttribute(att);
+          return val
+       
+        }else{
+          throw new Error("Atrribute  does not exists");
+        }
+        
+      },
+      remove:(at)=>{
+        
+        if ($(El).Attr.has(at)) {
+          $(El).getEl().removeAttribute(at);
+        }
+        
+      },
+     /* create:(t)=>{
+        
+        if (!$(El).Attr.has(t)) {
+          //$(El).getEl().createAttribute(t);
+          
+        }
+        
+      },
+      toggle:(atr)=>{
+        let tr=$(El).getEl();
+        if (tr.Attr.has(atr)) {
+          tr.Attr.remove(atr)
+        }else{
+          tr.Attr.create(atr)
+      }
+    }*/
+    },
+    togglePass:()=>{
+      let x=$(El).getEl();
+      if (x!=undefined) { 
+        
+      if ($(El).Attr.getVal("type")==="password"||$(El).Attr.getVal("type")==="text") {
+        if ($(El).Attr.getVal("type")==="password") {
+        $(El).Attr.setVal("type","text")
+      }else{
+        $(El).Attr.setVal("type","password")
+      }
+      }else{
+        throw new Error ("Element is invalid for password toggle")
+      }
+      }else{
+        throw new Error ("Element is not found")
+      }
+      
+    },
+    /*all:()=>{
+      let x=$(El).getAllEl();
+     x.forEach(Elll=> {
+      
+         Elll.type==="text"?Elll.type="password":Elll.type="text"
+         
+      
+     });
+      
+    },*/
     
    }
  return libObj;
@@ -185,7 +270,7 @@ components:{
       parent.appendChild(modDiv);
       $(".cmodal").style({
         color:"#fff",
-        background:"linear-gradient(45deg,hotpink, cornflowerblue)",
+        background:"#006270",
         display:"flex",
         "justify-content":"center",
         "align-items":"center",
@@ -193,23 +278,34 @@ components:{
         "border-radius":"12px",
         "flex-wrap":"wrap",
         position:"absolute",
-        transition:Al.duration,
+        transition:"0.5s" ,
         width:w,
         height:h,
         bottom:b,
-        left:actW
+        left:actW+"px",
+        opacity:1,
       })
           setTimeout(()=>{
                    modDiv.style.opacity = 0;
          // parent.removeChild(document.querySelector(".cmodal"))
-         modDiv.style.display="none"
+         if (modDiv.style.opacity==0) {
+           setTimeout(()=>{
+           modDiv.style.display="none"
          modDiv.classList.remove("cmodal")
+         },300)
+         }
           },Al.duration)
       }
       if (!$(".cmodal").getEl()){
         create();
       }
 
+    },
+    btn:(config={})=>{
+      let input=document.createElement("input");
+      input.setAtrr
+      
+      
     }
 }
 
